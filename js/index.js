@@ -20,6 +20,8 @@
 	}
 	var Win = $(window);
 	var Doc = $(document);
+	var RootContainer = $('#fiction_container');
+	var initFontSize = 14;
 
 	function main(){
 		//todo 整个项目的入口函数
@@ -43,6 +45,7 @@
 			}else{
 				Dom.bottom_nav.hide();
 				Dom.top_nav.hide();
+				Dom.font_container.hide();
 			}
 		});
 
@@ -59,7 +62,23 @@
 		$('#night-button').click(function(){
 			//TODO 触发背景切换的事件
 		});
-		
+		//放大缩小字体
+		$('#large-font').click(function(){
+			if(initFontSize > 20){
+				return;
+			}
+			initFontSize+=1;
+			RootContainer.css('font-size',initFontSize);
+		});
+
+		$('#small-font').click(function(){
+			if(initFontSize < 12){
+				return;
+			}
+			initFontSize-=1;
+			RootContainer.css('font-size',initFontSize);
+		});
+		//屏幕滑动隐藏面板
 		Win.scroll(function(){
 			Dom.bottom_nav.hide();
 			Dom.top_nav.hide();
