@@ -1,7 +1,7 @@
 (function(){
 	var Util = (function(){
+		var prefix = 'html5_reader_';
 		var StorageGetter = function(key){
-			var prefix = 'html5_reader_';
 			return localStorage.getItem(prefix + key);
 		}
 		var StorageSetter = function(key,val){
@@ -21,7 +21,12 @@
 	var Win = $(window);
 	var Doc = $(document);
 	var RootContainer = $('#fiction_container');
-	var initFontSize = 14;
+	var initFontSize = Util.StorageGetter('font_size');
+	initFontSize = parseInt(initFontSize);
+	if(!initFontSize){
+		initFontSize = 14;
+	}
+	RootContainer.css('font-size',initFontSize);
 
 	function main(){
 		//todo 整个项目的入口函数
@@ -69,6 +74,7 @@
 			}
 			initFontSize+=1;
 			RootContainer.css('font-size',initFontSize);
+			Util.StorageSetter('font_size',initFontSize);
 		});
 
 		$('#small-font').click(function(){
@@ -77,6 +83,7 @@
 			}
 			initFontSize-=1;
 			RootContainer.css('font-size',initFontSize);
+			Util.StorageSetter('font_size',initFontSize);
 		});
 		//屏幕滑动隐藏面板
 		Win.scroll(function(){
